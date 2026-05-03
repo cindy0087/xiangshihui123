@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公司简介 - 乡食惠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --primary: #2E7D32;
+            --light-green: #E8F5E9;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+        body {
+            background-color: #F0F8F0;
+            color: var(--text-dark);
+        }
+        /* 顶部导航 */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        /* 横幅 */
+        .banner {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+        .banner h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        /* 导航菜单 */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--white);
+            border-bottom: 1px solid #eee;
+        }
+        .sub-nav a {
+            padding: 0.7rem 1.2rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .sub-nav a:hover,
+        .sub-nav a.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        /* 内容卡片 */
+        .card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        .card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div></div>
+            <div class="contact-link">如有问题请联系我们</div>
+        </div>
+    </header>
+
+    <section class="banner">
+        <h1>公司简介</h1>
+        <p>乡食惠 - 多元化平台</p >
+    </section>
+
+   <nav class="sub-nav">
+        <a href="jianjie.html">公司简介</a >
+        <a href="fenxiang.html" >厨艺分享</a >
+        <a href="huodong.html">活动</a >
+        <a href="zhunong.html">助农直采</a >
+        <a href="gerenxinxi.html">个人信息</a >
+    </nav>
+
+    <div class="container">
+        <!-- ① 环境背景 -->
+        <div class="card">
+            <h3>✍️项目背景</h3>
+            <p> 
+乡食惠诞生于社区便民与助农增收、高校服务升级，医院陪护人员相应需求的四重背景下。当前，社区居民面临买菜贵、做饭难、邻里交流少的问题；高校师生也有着在校园内便捷做饭、共享厨艺、降低生活成本的需求；医院陪护人员想为患者做一顿家里饭菜却无场地；而农户则存在农产品销路窄、流通成本高的困境。我们以社区与高校为双核心，连接田间到餐桌，打造一站式美食服务平台，打通农产品流通的“最后一公里”。</p >
+        </div>
+
+        <!-- ② 价格结构/主营产品 -->
+        <div class="card">
+            <h3>📝主营产品与服务</h3>
+            <p>平台主营三大核心业务：
+            <br>• 生鲜直采超市：助农产品直采直供，无中间商加价，让居民买到平价新鲜食材；
+            <br>• 共享厨房：提供场地、智能化厨具，高校版扩宽社交场所，体验生活，社区版适配不同需求，医院版让陪护人员和患者感受到家的温暖，降低烹饪门槛；
+            <br>• 社区食堂：平价便民餐食服务，更提供特色私厨服务为老人、上班族等提供健康营养的一日三餐。</p >
+        </div>
+
+        <!-- ③ 发展理念 -->
+        <div class="card">
+            <h3>💹发展理念</h3>
+            <p>乡食惠秉持“以食为桥，惠民助农”的核心理念，坚持“便民、助农、共建、共享”的发展方向。我们希望通过美食服务，让校园更有生活温度，让社区更有烟火气，让医院更有家庭暖意，让农户更有获得感，构建一个可持续、有温度的美食生态。</p >
+        </div>
+
+        <!-- ④ 未来展望 -->
+        <div class="card">
+            <h3>⚕️未来展望</h3>
+            <p>未来我们计划将平台模式复制到更多社区，打造覆盖城市的社区美食服务网络；同时拓展高校合作，扩大助农直播与农产品推广渠道，助力更多农户增收。我们希望成为连接高校，社区与乡村的桥梁，让每一份食材都能从田间直达餐桌，让每一个城市都充满温暖的烟火气。</p >
+        </div>
+
+        <!-- ⑤ 联系方式 -->
+        <div class="card">
+            <h3>📞联系方式</h3>
+            <p>联系电话：018-065-0923
+            <br>邮箱：service@xiangshihui.com
+            <br>地址：河北省唐山市XX区XX服务中心</p >
+        </div>
+
+        <!-- ⑥ 公司特色 -->
+        <div class="card">
+            <h3>🖇平台特色</h3>
+            <p>• - 社区：为居民提供平价食材、共享厨房与便民食堂，打造邻里烟火气。
+<br>- 高校：为师生打造共享烹饪空间，满足低成本做饭、社交交流的需求。
+<br>- 医院：为陪护人员与患者提供“家的味道”烹饪场景，传递温暖关怀。；
+            <br>• 直连农户，省去中间环节，既让用户买到平价新鲜食材，也助力农户增收；
+            <br>• 通过共享厨房降低场地、厨具门槛，让不同人群都能便捷做饭、交流互动；
+            <br>• 多元场景：覆盖买菜、做饭、吃饭、社交的一站式社区美食服务。</p >
+        </div> 
+    </div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乡食惠 - 共享厨房助农平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --primary: #2E7D32;
+            --light-green: #E8F5E9;
+            --secondary: #FF9800;
+            --blue: #2196F3;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+        body {
+            background-color: #F0F8F0;
+            color: var(--text-dark);
+        }
+        /* 顶部导航 */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        /* 横幅 */
+        .banner {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+        .banner h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .banner p {
+            font-size: 1.1rem;
+        }
+        /* 导航菜单 */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--white);
+            border-bottom: 1px solid #eee;
+        }
+        .sub-nav a {
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .sub-nav a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .intro-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .intro-img {
+            width: 200px;
+            height: 150px;
+            background-color: var(--light-green);
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .intro-text h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+        .intro-text p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-image {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .card-1 { background-color: var(--blue); }
+        .card-2 { background-color: var(--secondary); }
+        .card-3 { background-color: var(--primary); }
+        .card-content {
+            padding: 1rem;
+            text-align: center;
+        }
+        .card-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+        .card-content p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        .tip-text {
+            text-align: right;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        @media (max-width: 768px) {
+            .intro-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .intro-img {
+                width: 100%;
+            }
+        }
+/* 卡片整体布局 */
+.service-grid {
+  display: flex;
+  gap: 24px; /* 卡片之间的间距 */
+  justify-content: center;
+  padding: 30px 0;
+  flex-wrap: wrap; /* 屏幕变小时自动换行 */
+}
+
+/* 卡片美化 */
+.service-card {
+  width: 300px;
+  background: #ffffff;
+  border-radius: 16px; /* 圆角美化 */
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* 柔和阴影 */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 悬停动效 */
+}
+
+/* 鼠标悬停效果 */
+.service-card:hover {
+  transform: translateY(-6px); /* 轻微上浮 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 图片容器 */
+.card-image {
+  width: 100%;
+  height: 200px; /* 卡片上半部分的高度，可按需调整 */
+  background-color: #f8f8f8; /* 图片留白时的背景色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 图片居中完整显示 */
+.card-image img {
+  max-width: 100%;
+  max-height: 90%;
+  object-fit: contain; /* 图片完整显示，不裁切 */
+  display: block;
+}
+
+/* 文字部分美化 */
+.card-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.card-content h4 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #222;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.tip-text {
+  text-align: right;
+  padding: 0 20px 20px;
+  color: #999;
+}
+.click-tip {
+         right: 40%;
+         bottom: -40px;
+         color:#000000;
+         font-family: "新宋体";
+     }
+
+.contact-checkbox {
+  display: none;
+}
+
+.contact-trigger {
+  position: absolute;
+  top: 175px; /* 触发文字上移，避开导航栏 */
+  right: 45px; /* 触发文字右移，远离内容区 */
+  color: #2e8b57;
+  font-size: 14px;
+  font-family: 'Microsoft YaHei', sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+  user-select: none;
+  z-index: 999;
+}
+.contact-trigger:hover {
+  color: #236b42;
+}
+.contact-section {
+  position: absolute;
+  top: 40px; /* 反馈框向上移，比触发文字更高 */
+  right: 20px; /* 反馈框向右移，避开下方文字和导航栏 */
+  width: 300px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-family: 'Microsoft YaHei', sans-serif;
+  display: none;
+  z-index: 9999;
+  border: 1px solid #2e8b57;
+}
+
+.contact-checkbox:checked + .contact-trigger + .contact-section {
+  display: block;
+}
+
+.contact-info {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #333;
+}
+.contact-info p {
+  margin: 5px 0;
+}
+.feedback-form {
+  margin-top: 10px;
+}
+.form-item {
+  margin-bottom: 10px;
+}
+.form-item label {
+  font-size: 13px;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+}
+.form-item input,
+.form-item textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.form-item textarea {
+  resize: none;
+}
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #2e8b57;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.submit-btn:hover {
+  background: #236b42;
+}
+    </style>
+</head>
+<body>
+    <header>
+    	<input type="checkbox" id="contact-check" class="contact-checkbox">
+       <label for="contact-check" class="contact-trigger"><font size="4"><b>如有问题请联系我们</b></font></label>
+<div class="contact-section">
+  <div class="contact-info">
+    <p>客服电话：018-065-0923</p >
+    <p>工作时间：7:00-22:00</p >
+  </div>
+  <form class="feedback-form" onsubmit="alert('留言提交成功！'); return false;">
+    <div class="form-item">
+      <label for="phone">您的手机号：</label>
+      <input type="tel" id="phone" placeholder="请输入11位手机号" pattern="\d{11}" required>
+    </div>
+    <div class="form-item">
+      <label for="comment">留言意见：</label>
+      <textarea id="comment" rows="3" placeholder="请输入您的问题或建议" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">提交</button>
+  </form>
+</div>
+    </header>
+
+    <section class="banner">
+        <h1>乡食惠  共享厨房助农平台</h1>
+        <p>社区共享食堂 · 生鲜直采超市 · 邻里美食共建</p >
+    </section>
+
+    <!-- 导航栏，所有链接都可跳转 -->
+    <nav class="sub-nav">
+        <a href="jianjie.html">公司简介</a >
+        <a href="fenxiang.html">厨艺分享</a >
+        <a href="huodong.html">活动</a >
+        <a href="zhunong.html">助农直采</a >
+        <a href="gerenxinxi.html">个人信息</a >
+    </nav>
+
+    <div class="container">
+        <section class="intro-card">
+            <section class="intro-card">
+  <div class="intro-img" style="background-image: url('img/4.jpg'); background-size: cover; background-position: center; width: 350px; height: 200px; border-radius: 8px; flex-shrink: 0;"></div>
+  <div class="intro-text">
+    <h3><font size=6px>乡食惠平台介绍</font></h3>
+    <p>乡食惠是以社区与高校场景为核心，构建从田间到餐桌的全链路助农服务平台。我们以共享厨房、社区食堂、生鲜食材超市三大场景为载体，打造集便民餐饮、助农增收、邻里社交、生活体验于一体的社区生活服务生态，让新鲜食材直达餐桌，让温暖烟火气走进社区校园，让助农的成果惠及每一位用户。</p >
+  </div>
+</section>
+            
+        </section>
+
+        <section>
+     <div class="service-grid">
+  <!-- 共享厨房卡片 -->
+  <div class="service-card" onclick="location.href='共享厨房.html'">
+    <!-- 用div做图片容器 -->
+    <div class="card-image">
+      <img src="img/2.jpg" alt="共享厨房">
+    </div>
+    <div class="card-content">
+      <h4>🫕共享厨房🍳</h4>
+      <p>社区共享烹饪空间，提供厨具、场地与美食教学</p >
+	  <p>点击进入</p>
+    </div>
+  </div>
+
+  <!-- 社区食堂卡片 -->
+  <div class="service-card" onclick="location.href='社区食堂.html'">
+    <div class="card-image">
+      <img src="img/1.jpg" alt="社区食堂">
+    </div>
+    <div class="card-content">
+      <h4>🥗社区食堂🍜</h4>
+      <p>平价社区餐饮，为老人上班族提供营养餐食</p >
+    </div>
+  </div>
+
+  <!-- 生鲜超市卡片 -->
+  <div class="service-card" onclick="location.href='生鲜超市.html'">
+    <div class="card-image">
+      <img src="img/6.jpg" alt="生鲜超市">
+    </div>
+    <div class="card-content">
+      <h4>🍊生鲜超市🥦</h4>
+      <p>助农产品直采直供，新鲜食材直达</p >
+    </div>
+  </div>
+</div>
+            <p class="tip-text" style="color: #6A0DAD; font-size: 20px;">点击图片进入详情页→</p >
+        </section>
+    </div>
+</body>
+</html>

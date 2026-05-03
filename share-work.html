@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分享作品 - 乡食惠厨艺分享</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --primary: #2E7D32;
+            --light-green: #E8F5E9;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+        body {
+            background-color: #F0F8F0;
+            color: var(--text-dark);
+        }
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-link {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .banner {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        .banner h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--white);
+            border-bottom: 1px solid #eee;
+        }
+        .sub-nav a {
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        .sub-nav a:hover,.sub-nav a.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .form-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .form-card h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input,.form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        /* 上传区域样式 */
+        .upload-wrap {
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            padding: 3rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            background: var(--light-green);
+            transition: 0.3s;
+            display:block;
+        }
+        .upload-wrap:hover {
+            background: #d8eed8;
+        }
+        #fileInput {
+            display: none;
+        }
+        /* 上传预览图 */
+        #preview {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 1rem;
+            border-radius: 8px;
+            display: none;
+            border: 1px solid #eee;
+        }
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #27692a;
+        }
+        /* 作品流卡片样式（九宫格效果） */
+        .work-feed {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .work-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .work-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .work-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div></div>
+            <div class="contact-link">如有问题请联系我们</div>
+        </div>
+    </header>
+
+    <section class="banner">
+        <h1>分享作品</h1>
+        <p>上传美食照片 + 填写做法分享</p >
+    </section>
+
+
+
+    <div class="container">
+        <!-- 发布表单 -->
+        <div class="form-card">
+            <h3>发布我的美食作品</h3>
+            <div class="form-group">
+                <label>作品名称</label>
+                <input type="text" id="titleInput" placeholder="请输入菜品名称">
+            </div>
+
+           <div class="form-group">
+    <label>上传美食照片</label>
+    <label class="upload-wrap" id="uploadBox">
+        <p>📷 点击此处上传照片</p >
+        <p style="font-size:14px;margin-top:8px;">支持 jpg / png 格式</p >
+        <input type="file" id="fileInput" accept="image/*">
+    </label>
+    < img id="preview"><p>效果预览图</p>
+</div>
+
+            <div class="form-group">
+                <label>食材用料</label>
+                <textarea id="materialInput" placeholder="请输入需要的食材、用量"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>制作步骤做法</label>
+                <textarea id="stepInput" placeholder="详细写下做菜步骤、方法"></textarea>
+            </div>
+
+            <button class="submit-btn" id="publishBtn">立即发布分享</button>
+        </div>
+
+        <!-- 作品展示区：九宫格流效果 -->
+        <div class="form-card">
+            <h3>大家分享的美食作品</h3>
+            <div id="workList">
+                <!-- 示例作品1 -->
+                <div class="work-feed">
+                    <div class="work-title">家常红烧肉</div>
+                    <div class="work-grid">
+                        <img src="img/红烧肉1.jpg">
+                        <img src="img/红烧肉2.jpg">
+                        <img src="img/红烧肉3.jpg">
+                        <img src="img/红烧肉4.jpg">
+                        <img src="img/红烧肉5.jpg">
+                        <img src="img/红烧肉6.jpg">
+                    </div>
+                    <div class="work-desc">
+⭐食材：
+五花肉500g、冰糖、姜片、葱段、生抽、老抽、料酒、清水（或开水）
+
+<br>⭐做法：
+
+1. 五花肉切成大小均匀的方块，冷水下锅，加入姜片、料酒，大火煮开撇去浮沫，捞出洗净沥干备用；
+
+2. 锅中放少许油，下入冰糖小火慢炒至融化并呈现焦糖色，立刻倒入焯好的五花肉翻炒均匀，让每块肉都裹上糖色；
+
+3. 加入姜片、葱段爆香，淋入生抽提鲜、老抽上色，翻炒至五花肉均匀入味；
+
+4. 倒入没过食材的开水，大火烧开后转小火，盖上锅盖慢炖约40分钟，直至肉质软烂；
+
+5. 最后开大火收汁，待汤汁浓稠、色泽红亮即可出锅，撒上葱花点缀。
+                    </div>
+                </div>
+
+                <!-- 示例作品2 -->
+                <div class="work-feed">
+                    <div class="work-title">番茄炒蛋</div>
+                    <div class="work-grid">
+                        <img src="img/番茄炒蛋1.jpg">
+                        <img src="img/番茄炒蛋2.jpg">
+                        <img src="img/番茄炒蛋3.jpg">
+                        <img src="img/番茄炒蛋4.jpg">
+                        <img src="img/番茄炒蛋5.jpg">
+                        <img src="img/番茄炒蛋6.jpg">
+                    </div>
+                    <div class="work-desc">
+                        食材：番茄2个、鸡蛋3个、食盐、葱花少许<br>
+                        做法：1. 鸡蛋打散炒熟盛出；2. 番茄切块炒出汤汁；3. 倒入鸡蛋混合翻炒，加盐调味出锅。（灵魂：加入0卡糖）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 等页面加载完再执行
+    document.addEventListener('DOMContentLoaded', function(){
+        let fileInput = document.getElementById('fileInput');
+        let preview = document.getElementById('preview');
+
+        let titleInput = document.getElementById('titleInput');
+        let materialInput = document.getElementById('materialInput');
+        let stepInput = document.getElementById('stepInput');
+        let publishBtn = document.getElementById('publishBtn');
+        let workList = document.getElementById('workList');
+
+        let nowImgUrl = "";
+
+        // 图片上传预览
+        fileInput.onchange = function(e){
+            let file = e.target.files[0];
+            if(!file) return;
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(){
+                nowImgUrl = reader.result;
+                preview.src = nowImgUrl;
+                preview.style.display = "block";
+            }
+        };
+
+        // 发布按钮事件（关键修复：去掉img标签的空格，强制HTML解析）
+        publishBtn.onclick = function(){
+            let title = titleInput.value.trim();
+            let material = materialInput.value.trim();
+            let step = stepInput.value.trim();
+
+            if(!title){ alert("请输入作品名称"); return; }
+            if(!nowImgUrl){ alert("请上传美食照片"); return; }
+            if(!material){ alert("请填写食材用料"); return; }
+            if(!step){ alert("请填写制作步骤"); return; }
+
+            // 这里的<img>标签必须没有任何空格！
+            let newWork = 
+            `<div class="work-feed">
+                <div class="work-title">${title}</div>
+                <div class="work-grid">
+                    < img src="${nowImgUrl}">
+                </div>
+                <div class="work-desc">
+⭐食材：<br>${material}<br><br>⭐做法：<br>${step}
+                </div>
+            </div>`;
+
+            // 用innerHTML而不是insertAdjacentHTML，强制解析HTML
+            workList.insertAdjacentHTML("afterbegin", newWork);
+
+            // 清空表单
+            titleInput.value = "";
+            materialInput.value = "";
+            stepInput.value = "";
+            preview.style.display = "none";
+            nowImgUrl = "";
+            fileInput.value = "";
+
+            alert("发布成功！");
+        };
+    });
+</script>
+</body>
+</html>

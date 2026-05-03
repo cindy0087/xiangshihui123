@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动交流 - 乡食惠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        /* 顶部绿色标题栏 */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        /* 内容区域 */
+        .content {
+            padding: 20px;
+        }
+        /* 评论输入框 */
+        .comment-input-area {
+            margin-bottom: 25px;
+        }
+        #commentInput {
+            width: 100%;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 15px;
+            min-height: 70px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+        #submitBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+            font-size: 14px;
+        }
+        #submitBtn:hover {
+            background-color: #43a047;
+        }
+        /* 评论列表 */
+        .comment-list {
+            list-style: none;
+        }
+        .comment-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .user-info .username {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            font-size: 15px;
+        }
+        .user-info .time {
+            font-size: 12px;
+            color: #999;
+        }
+        .comment-content {
+            color: #555;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        .comment-actions {
+            font-size: 14px;
+            color: #777;
+        }
+        .comment-actions span {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题 -->
+        <div class="header">
+            <h1>互动交流</h1>
+            <p>一起探讨食材搭配与制作技巧</p >
+        </div>
+
+        <div class="content">
+            <!-- 评论输入区域 -->
+            <div class="comment-input-area clearfix">
+                <textarea id="commentInput" placeholder="分享你的烹饪心得或建议..."></textarea>
+                <button id="submitBtn">发布评论</button>
+            </div>
+
+            <!-- 评论列表 -->
+            <ul class="comment-list" id="commentList">
+                <!-- 初始评论 -->
+                <li class="comment-item">
+                    <div class="comment-header">
+                        <div class="avatar">小</div>
+                        <div class="user-info">
+                            <span class="username">小厨娘</span>
+                            <span class="time">2026-05-01 10:30</span>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        分享一个小技巧：炒青菜时最后淋少许香油，口感会更香哦！
+                    </div>
+                    <div class="comment-actions">
+                        <span>👍 12</span>
+                        <span>回复5</span>
+                    </div>
+                </li>
+                <li class="comment-item">
+                    <div class="comment-header">
+                        <div class="avatar">乡</div>
+                        <div class="user-info">
+                            <span class="username">乡食惠用户</span>
+                            <span class="time">2026-05-01 11:15</span>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        请教一下，土豆丝怎么炒才能不粘锅？每次炒都粘锅好头疼。
+                    </div>
+                    <div class="comment-actions">
+                        <span>👍 8</span>
+                        <span>回复9</span>
+                    </div>
+                </li>
+                <li class="comment-item">
+                    <div class="comment-header">
+                        <div class="avatar">惠</div>
+                        <div class="user-info">
+                            <span class="username">惠美食</span>
+                            <span class="time">2026-05-01 14:20</span>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        推荐一道家常菜：番茄炒蛋，酸甜开胃，新手也能轻松上手！
+                    </div>
+                    <div class="comment-actions">
+                        <span>👍 25</span>
+                        <span>回复6</span>
+                    </div>
+                </li>
+                 <li class="comment-item">
+                    <div class="comment-header">
+                        <div class="avatar">乡</div>
+                        <div class="user-info">
+                            <span class="username">乡食惠用户1086</span>
+                            <span class="time">2026-05-01 19:15</span>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        周末想找周边朋友想一起来社区共享厨房自己做菜小聚，扩展自己的社交
+                    </div>
+                    <div class="comment-actions">
+                        <span>👍 10</span>
+                        <span>回复23</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 获取元素
+        const commentInput = document.getElementById('commentInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const commentList = document.getElementById('commentList');
+
+        // 绑定点击事件
+        submitBtn.addEventListener('click', function() {
+            const content = commentInput.value.trim();
+            if (content === '') {
+                alert('请输入评论内容');
+                return;
+            }
+
+            // 获取当前时间
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            // 创建新评论节点
+            const newComment = document.createElement('li');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <div class="avatar">我</div>
+                    <div class="user-info">
+                        <span class="username">我</span>
+                        <span class="time">${timeStr}</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    ${content}
+                </div>
+                <div class="comment-actions">
+                    <span>👍 0</span>
+                    <span>回复</span>
+                </div>
+            `;
+
+            // 把新评论插入到列表最前面
+            commentList.prepend(newComment);
+
+            // 清空输入框
+            commentInput.value = '';
+        });
+    </script>
+</body>
+</html>

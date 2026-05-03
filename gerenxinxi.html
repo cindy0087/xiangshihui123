@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 乡食惠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, #4CAF50, #81C784);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #4CAF50;
+            margin-right: 20px;
+        }
+        .user-info h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .user-info p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .edit-btn {
+            margin-left: auto;
+            background-color: white;
+            color: #4CAF50;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .modal-content h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-cancel {
+            background-color: #eee;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-confirm {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .section-title {
+            font-size: 20px;
+            color: #2e7d32;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .menu-list {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .menu-item {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item:hover {
+            background-color: #f8f9fa;
+        }
+        .menu-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4CAF50;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .menu-text {
+            flex: 1;
+            color: #333;
+            font-size: 16px;
+        }
+        .menu-arrow {
+            color: #999;
+        }
+        .aftersale-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .aftersale-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .aftersale-title::before {
+            content: "ℹ";
+            margin-right: 8px;
+            color: #4CAF50;
+        }
+        .aftersale-desc {
+            color: #666;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        .aftersale-desc strong {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="avatar">👩</div>
+            <div class="user-info">
+                <h2 id="username-text">乡食惠用户</h2>
+                <p>手机号: <span id="phone-text">138****8888</span></p >
+            </div>
+            <button class="edit-btn" onclick="openEditModal()">编辑资料</button>
+        </div>
+
+        <h3 class="section-title">个人信息管理</h3>
+        <div class="menu-list">
+            <div class="menu-item" onclick="openEditModal()">
+                <div class="menu-icon">👤</div>
+                <div class="menu-text">编辑个人资料</div>
+                <div class="menu-arrow">></div>
+            </div>
+            <div class="menu-item" onclick="openPasswordModal()">
+                <div class="menu-icon">🔒</div>
+                <div class="menu-text">修改密码</div>
+                <div class="menu-arrow">></div>
+            </div>
+            <div class="menu-item" onclick="openAddressModal()">
+                <div class="menu-icon">📍</div>
+                <div class="menu-text">收货地址管理</div>
+                <div class="menu-arrow">></div>
+            </div>
+        </div>
+
+        <h3 class="section-title">我的订单与记录</h3>
+        <div class="menu-list">
+            <div class="menu-item" onclick="openAllOrderModal()">
+                <div class="menu-icon">🛒</div>
+                <div class="menu-text">全部订单</div>
+                <div class="menu-arrow">></div>
+            </div>
+            <div class="menu-item" onclick="openPlantOrderModal()">
+                <div class="menu-icon">📦</div>
+                <div class="menu-text">我的种植订单</div>
+                <div class="menu-arrow">></div>
+            </div>
+        </div>
+
+        <div class="aftersale-card">
+            <div class="aftersale-title">种子商品售后说明</div>
+            <div class="aftersale-desc">
+                1. 您购买的种子商品，支持 <strong>15-30天无理由退货</strong>，但以下情况除外：<br>
+                &nbsp;&nbsp;&nbsp;• 种子已拆封、已播种，且未接受客服种植指导自行种植，因个人种植原因导致发芽率低或植物死亡，<strong>不支持无理由</strong><br>
+                &nbsp;&nbsp;&nbsp;• 若您已接受客服提供的种植指导，仍因非个人操作失误导致植物死亡，可在售后周期内申请退货/售后支持。<br>
+                2. 种子类商品一经拆封播种，不支持物流退货，请您确认需求后再购买。<br>
+                3. 如有疑问，请联系客服获取种植指导与售后协助。
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑资料弹窗 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3>编辑个人资料</h3>
+            <label>用户名：</label>
+            <input type="text" id="modal-username" placeholder="请输入用户名">
+            <label>手机号：</label>
+            <input type="text" id="modal-phone" placeholder="请输入手机号">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeEditModal()">取消</button>
+                <button class="btn-confirm" onclick="saveEdit()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码弹窗 -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <h3>修改密码</h3>
+            <label>原密码：</label>
+            <input type="password" id="old-password" placeholder="请输入原密码">
+            <label>新密码：</label>
+            <input type="password" id="new-password" placeholder="请输入新密码">
+            <label>确认新密码：</label>
+            <input type="password" id="confirm-password" placeholder="请再次输入新密码">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closePasswordModal()">取消</button>
+                <button class="btn-confirm" onclick="savePassword()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收货地址弹窗 -->
+    <div class="modal" id="addressModal">
+        <div class="modal-content">
+            <h3>收货地址管理</h3>
+            <label>收货人：</label>
+            <input type="text" placeholder="请输入收货人姓名">
+            <label>联系电话：</label>
+            <input type="text" placeholder="请输入联系电话">
+            <label>收货地址：</label>
+            <input type="text" placeholder="请输入省/市/区/详细地址">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeAddressModal()">取消</button>
+                <button class="btn-confirm" onclick="saveAddress()">保存地址</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全部订单弹窗 -->
+    <div class="modal" id="allOrderModal">
+        <div class="modal-content">
+            <h3>全部订单</h3>
+            <p style="color:#666; margin:10px 0;">订单1：番茄种子套餐 - 已发货</p >
+            <p style="color:#666; margin:10px 0;">订单2：草莓苗 - 待收货</p >
+            <p style="color:#666; margin:10px 0;">订单3：生菜种子 - 已完成</p >
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="closeAllOrderModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 种植订单弹窗 -->
+    <div class="modal" id="plantOrderModal">
+        <div class="modal-content">
+            <h3>我的种植订单</h3>
+            <p style="color:#666; margin:10px 0;">种植项目1：阳台番茄种植 - 进行中</p >
+            <p style="color:#666; margin:10px 0;">种植项目2：水培生菜种植 - 已完成</p >
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="closePlantOrderModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 默认初始密码
+        const DEFAULT_PWD = "123456";
+
+        // 页面加载初始化个人信息 & 初始密码
+        window.onload = function(){
+            // 初始化用户名手机号
+            if(!localStorage.getItem("userName")){
+                localStorage.setItem("userName","乡食惠用户");
+            }
+            if(!localStorage.getItem("userPhone")){
+                localStorage.setItem("userPhone","138****8888");
+            }
+            // 初始化默认密码 123456
+            if(!localStorage.getItem("userPwd")){
+                localStorage.setItem("userPwd", DEFAULT_PWD);
+            }
+
+            // 赋值到页面
+            document.getElementById("username-text").innerText = localStorage.getItem("userName");
+            document.getElementById("phone-text").innerText = localStorage.getItem("userPhone");
+        }
+
+        // 编辑个人资料
+        function openEditModal() {
+            let name = localStorage.getItem("userName");
+            let phone = localStorage.getItem("userPhone");
+            document.getElementById('modal-username').value = name;
+            document.getElementById('modal-phone').value = phone;
+            document.getElementById('editModal').style.display = 'flex';
+        }
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        function saveEdit() {
+            let newName = document.getElementById('modal-username').value;
+            let newPhone = document.getElementById('modal-phone').value;
+            localStorage.setItem("userName",newName);
+            localStorage.setItem("userPhone",newPhone);
+            document.getElementById('username-text').innerText = newName;
+            document.getElementById('phone-text').innerText = newPhone;
+            alert("个人信息修改成功，已同步所有页面！");
+            closeEditModal();
+        }
+
+        // 修改密码
+        function openPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'flex';
+        }
+        function closePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+        function savePassword() {
+            let oldPwd = document.getElementById('old-password').value;
+            let newPwd = document.getElementById('new-password').value;
+            let confirmPwd = document.getElementById('confirm-password').value;
+
+            // 校验原密码是否正确（初始默认123456）
+            let nowPwd = localStorage.getItem("userPwd");
+            if(oldPwd !== nowPwd){
+                alert("原密码错误！初始密码为：123456");
+                return;
+            }
+            if(!newPwd || !confirmPwd){
+                alert("请填写完整新密码！");
+                return;
+            }
+            if(newPwd !== confirmPwd){
+                alert("两次新密码输入不一致！");
+                return;
+            }
+            // 保存新密码
+            localStorage.setItem("userPwd", newPwd);
+            alert("密码修改成功！");
+            closePasswordModal();
+            // 清空输入框
+            document.getElementById('old-password').value = "";
+            document.getElementById('new-password').value = "";
+            document.getElementById('confirm-password').value = "";
+        }
+
+        // 收货地址
+        function openAddressModal() {
+            document.getElementById('addressModal').style.display = 'flex';
+        }
+        function closeAddressModal() {
+            document.getElementById('addressModal').style.display = 'none';
+        }
+        function saveAddress() {
+            alert("收货地址保存成功，已同步页面");
+            closeAddressModal();
+        }
+
+        // 全部订单
+        function openAllOrderModal() {
+            document.getElementById('allOrderModal').style.display = 'flex';
+        }
+        function closeAllOrderModal() {
+            document.getElementById('allOrderModal').style.display = 'none';
+        }
+
+        // 种植订单
+        function openPlantOrderModal() {
+            document.getElementById('plantOrderModal').style.display = 'flex';
+        }
+        function closePlantOrderModal() {
+            document.getElementById('plantOrderModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

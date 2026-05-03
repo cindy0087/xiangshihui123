@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经验交流 - 乡食惠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        /* 顶部标题栏（和互动交流区分：用浅绿+图标强化） */
+        .header {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #c8e6c9;
+        }
+        .header .icon {
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .header .icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 14px;
+            color: #555;
+        }
+        /* 内容区域 */
+        .content {
+            padding: 25px;
+        }
+        /* 发布话题表单（和互动交流区分：带话题分类） */
+        .topic-form {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 15px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+            font-size: 15px;
+        }
+        .submit-btn:hover {
+            background-color: #43a047;
+        }
+        /* 话题列表（和互动交流区分：卡片式，带分类标签） */
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .topic-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 18px;
+            transition: box-shadow 0.2s;
+        }
+        .topic-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .topic-tag {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .topic-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .topic-content {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .topic-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #777;
+        }
+        .topic-actions button {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="header">
+            <div class="icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+            </div>
+            <h1>经验交流</h1>
+            <p>交流烹饪心得、食材选购与厨房好物推荐</p >
+        </div>
+
+        <div class="content">
+            <!-- 发布话题表单 -->
+            <div class="topic-form clearfix">
+                <div class="form-group">
+                    <label>话题分类</label>
+                    <select id="topicCategory">
+                        <option value="cooking">烹饪心得</option>
+                        <option value="ingredients">食材选购</option>
+                        <option value="tools">厨房好物</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>话题标题</label>
+                    <input type="text" id="topicTitle" placeholder="用一句话概括你的分享">
+                </div>
+                <div class="form-group">
+                    <label>详细内容</label>
+                    <textarea id="topicContent" placeholder="分享你的经验、技巧或推荐..."></textarea>
+                </div>
+                <button class="submit-btn" onclick="submitTopic()">发布话题</button>
+            </div>
+
+            <!-- 话题列表 -->
+            <div class="topic-list" id="topicList">
+                <!-- 示例话题1 -->
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <span class="topic-tag">食材选购</span>
+                        <span class="topic-meta">发布者：乡食惠用户 | 2026-05-01</span>
+                    </div>
+                    <div class="topic-title">挑选新鲜鸡蛋的小技巧</div>
+                    <div class="topic-content">
+                        分享3个实用方法：1. 看蛋壳表面，粗糙带霜的更新鲜；2. 摇一摇，无晃动的更新鲜；3. 打在碗里，蛋黄完整、蛋白浓稠的是好蛋。
+                    </div>
+                    <div class="topic-actions">
+                        <button>👍 23</button>
+                        <button>💬 12 回复</button>
+                    </div>
+                </div>
+                <!-- 示例话题2 -->
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <span class="topic-tag">厨房好物</span>
+                        <span class="topic-meta">发布者：小厨娘 | 2026-05-01</span>
+                    </div>
+                    <div class="topic-title">百元内厨房神器推荐</div>
+                    <div class="topic-content">
+                        强烈推荐这几样：硅胶锅铲（不伤锅）、不锈钢洗菜篮（沥水方便）、带盖保鲜盒（食材收纳神器），都是厨房必备！
+                    </div>
+                    <div class="topic-actions">
+                        <button>👍 35</button>
+                        <button>💬 18 回复</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitTopic() {
+            const category = document.getElementById('topicCategory').value;
+            const title = document.getElementById('topicTitle').value.trim();
+            const content = document.getElementById('topicContent').value.trim();
+
+            if (!title || !content) {
+                alert('请填写话题标题和内容');
+                return;
+            }
+
+            // 分类标签文本
+            const categoryMap = {
+                'cooking': '烹饪心得',
+                'ingredients': '食材选购',
+                'tools': '厨房好物'
+            };
+            const categoryText = categoryMap[category];
+
+            // 获取当前时间
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+            // 创建新话题卡片
+            const newTopic = document.createElement('div');
+            newTopic.className = 'topic-card';
+            newTopic.innerHTML = `
+                <div class="topic-header">
+                    <span class="topic-tag">${categoryText}</span>
+                    <span class="topic-meta">发布者：我 | ${timeStr}</span>
+                </div>
+                <div class="topic-title">${title}</div>
+                <div class="topic-content">
+                    ${content}
+                </div>
+                <div class="topic-actions">
+                    <button>👍 0</button>
+                    <button>💬 0 回复</button>
+                </div>
+            `;
+
+            // 插入到列表最前面
+            document.getElementById('topicList').prepend(newTopic);
+
+            // 清空表单
+            document.getElementById('topicTitle').value = '';
+            document.getElementById('topicContent').value = '';
+            alert('话题发布成功！');
+        }
+    </script>
+</body>
+</html>

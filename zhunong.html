@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>助农直采 - 乡食惠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        /* 顶部绿色标题栏 */
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 35px 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        /* 产品优势区 */
+        .advantages-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .advantage-item {
+            text-align: center;
+            padding: 15px;
+        }
+        .advantage-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 28px;
+            color: #4CAF50;
+        }
+        .advantage-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .advantage-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        /* 核心服务板块 */
+        .service-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 22px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .service-banner {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #81C784, #4CAF50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+        .service-content {
+            flex: 1;
+            padding: 25px;
+        }
+        .service-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .service-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .service-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .service-btn:hover {
+            background-color: #43a047;
+        }
+        /* 直播板块 */
+        .live-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .live-banner {
+            background: linear-gradient(135deg, #2196F3, #64B5F6);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .live-banner h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .live-banner p {
+            opacity: 0.9;
+        }
+
+        /* 详情弹窗遮罩 */
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+        }
+        /* 详情弹窗盒子 */
+        .detail-popup {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            border-radius: 16px;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .detail-popup h3 {
+            font-size: 22px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .detail-text {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .detail-img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .detail-video {
+            width: 100%;
+            height: 260px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .detail-close {
+            width: 100%;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题栏 -->
+        <div class="header">
+            <h1>🌾 助农直采</h1>
+            <p>从田间到餐桌，直采乡村好物，守护新鲜与健康</p >
+        </div>
+
+        <!-- 产品优势区 -->
+        <div class="advantages-section">
+            <h2 class="section-title">产品优势</h2>
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <div class="advantage-icon">🌱</div>
+                    <div class="advantage-title">产地直采</div>
+                    <div class="advantage-desc">跳过中间商，直接从农户手中采购，价格更实在</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">🍃</div>
+                    <div class="advantage-title">新鲜直达</div>
+                    <div class="advantage-desc">现摘现发，保留食材本味，锁住田间新鲜</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">🤝</div>
+                    <div class="advantage-title">助农惠民</div>
+                    <div class="advantage-desc">支持乡村农户，让优质农产品走进千家万户</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">💬</div>
+                    <div class="advantage-title">售后无忧</div>
+                    <div class="advantage-desc">专业客服全程跟进，购买种植全程有保障</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心服务板块 -->
+        <div class="service-section">
+            <h2 class="section-title">我们的服务</h2>
+
+            <!-- 服务1：种-收-卖闭环 -->
+            <div class="service-card">
+                <div class="service-banner">🌾</div>
+                <div class="service-content">
+                    <div class="service-title">「种-收-卖」闭环服务</div>
+                    <div class="service-desc">
+                        从种植，到收获、销售农产品，打通从田园到餐桌的完整链路。
+                    </div>
+                    <button class="service-btn" onclick="openDetail(0)">了解详情</button>
+                </div>
+            </div>
+
+            <!-- 服务2：联系我们，共种共享 -->
+            <div class="service-card">
+                <div class="service-banner">👨‍🌾</div>
+                <div class="service-content">
+                    <div class="service-title">共种共享计划</div>
+                    <div class="service-desc">
+                        联系我们参与“共种共享”活动，农户提供土地与技术指导，用户认购种子、参与种植过程。
+                    </div>
+                    <button class="service-btn" onclick="openDetail(1)">立即参与</button>
+                </div>
+            </div>
+
+            <!-- 服务3：高校合作直播 -->
+            <div class="service-card">
+                <div class="service-banner">🎥</div>
+                <div class="service-content">
+                    <div class="service-title">高校合作直播助农</div>
+                    <div class="service-desc">
+                        与高校合作开展助农直播，由大学生主播走进田间地头，直播农产品采摘、打包全过程。
+                    </div>
+                    <button class="service-btn" onclick="openDetail(2)">预约直播</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 直播板块 -->
+        <div class="live-section">
+            <h2 class="section-title">田间直播</h2>
+            <div class="live-banner" onclick="openDetail(3)">
+                <h3>📺 正在直播：农户采摘现场</h3>
+                <p>点击进入直播间，一起见证新鲜蔬菜从田间到打包的全过程</p >
+            </div>
+            <p style="text-align:center; color:#666;">更多乡村好物直播，线上秒杀新鲜蔬果敬请期待...</p >
+        </div>
+    </div>
+
+    <!-- 详情弹窗 -->
+<div class="mask" id="detailMask">
+    <div class="detail-popup">
+        <h3 id="detailTitle"></h3>
+        <div class="detail-text" id="detailText"></div>
+        
+        <div class="detail-video">
+            <video id="detailVideo" controls width="100%" height="100%" style="border-radius: 12px;">
+                <source src="" type="video/mp4">
+                你的浏览器不支持视频播放，请升级浏览器。
+            </video>
+        </div>
+        <button class="detail-close" onclick="closeDetail()">关闭</button>
+    </div>
+</div>
+
+<script>
+    // 每个板块的详情数据 + 对应视频路径
+    const detailData = [
+        {
+            title: "「种-收-卖」闭环服务详情",
+            text: "本项目打造完整的农产品种、收、卖一体化闭环服务。平台对接乡村农户，由农户提供优质蔬菜水果等。农作物成熟后，平台统一协助收购、分拣、包装，通过线上渠道直售给城市用户。砍掉多层中间商，让农户多赚钱、市民少花钱，真正实现从田园直达餐桌的绿色供应链模式。",
+            video: "img/助农1视频.mp4" // 板块1的视频
+        },
+        {
+            title: "共种共享计划详情",
+            text: "共种共享计划面向全校师生及社区居民开放参与。由合作乡村农户提供闲置土地、农具和专业种植技术，用户只需认购种子和种植份额，也可本平台购买全套设备，在家体验农村种植农作物的快乐，实现盆栽种菜，自由空闲时间可线下前往田园参与劳作、观察作物生长。收获的农产品可自己带回家食用，也可委托平台代为售卖分红，既能体验田园生活，又能助力乡村振兴。",
+            video: "img/助农2视频.mp4" // 板块2的视频
+        },
+        {
+            title: "高校合作直播助农详情",
+            text: "乡食惠联动本地各大高校，组建大学生助农直播团队。主播深入田间地头，实景直播农作物采摘、清洗、打包、发货全流程，真实展示农产品生长环境与品质。借助校园流量与社交传播优势，帮助农户拓宽线上销路，同时为大学生提供社会实践、电商直播实战锻炼平台，实现校园与乡村双向赋能。",
+            video: "img/助农3视频.mp4" // 板块3的视频
+        },
+        {
+            title: "田间直播现场详情",
+            text: "平台定期开启田间实景直播，带用户云逛菜园、果园、农田。实时观看农户采摘、分拣、打包全过程，直观看到食材生长环境，吃得放心、买得安心。直播期间还有限时特价农特产、秒杀优惠、助农团购等福利，足不出户就能买到正宗乡村新鲜好物。",
+            video: "img/助农4视频.mp4" // 板块4的视频
+        }
+    ];
+
+    const mask = document.getElementById('detailMask');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailText = document.getElementById('detailText');
+    const detailVideo = document.getElementById('detailVideo');
+
+    // 打开详情弹窗
+    function openDetail(index){
+        let item = detailData[index];
+        detailTitle.innerText = item.title;
+        detailText.innerText = item.text;
+
+        // 动态设置视频路径
+        detailVideo.src = item.video;
+        // 重新加载视频（防止上次播放进度残留）
+        detailVideo.load();
+
+        mask.style.display = 'flex';
+    }
+
+    // 关闭详情弹窗
+    function closeDetail(){
+        mask.style.display = 'none';
+        // 关闭弹窗时暂停视频
+        detailVideo.pause();
+    }
+</script>
+</body>
+</html>
